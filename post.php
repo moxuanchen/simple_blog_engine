@@ -1,34 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Send Post...</title>
+    <script type="text/javascript" src="static/js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
 <?php
 
-require_once "logger.php";
-require_once "db.php";
+require_once "utils.php";
+confirmUserHasLogin();
 
-$title = $_POST["title"];
-$content = $_POST["content"];
-
-$conn = mysqli_connect_database();
-$query = "select * from post where title='$title'";
-Logger::GetLogger()->write($query);
-
-$result = $conn->query($query);
-if (! $result) {
-    die($conn->error);
-}
-
-if ($result->num_rows > 0) {
-    die("!!!Already had the same title!!!");
-}
-
-$result->close();
-
-$query = "insert into post(title, content) values('$title', '$content')";
-Logger::GetLogger()->write($query);
-$result = $conn->query($query);
-if (! $result) {
-    die($conn->error);
-}
-
-$conn->close();
-
-echo "OK";
 ?>
+<div>
+    <div id="log" style="color: red"></div>
+    <p>Title: <input type="text" id="title" placeholder="Your post title here..."></p>
+    <p>Content: </p>
+    <textarea id="content" placeholder="Your post here..." rows="20", cols="100"></textarea>
+    <p><input type="submit" id="submit" onclick="checkAndSendPost()"></input></p>
+</div>
+
+<script type="text/javascript">
+    function writeLog(message) {
+        var elog = document.getElementById("log");
+        elog.innerHTML = message;
+        $("#log").hide(30000, function() {
+            elog.innerHTML = "";
+            $("#log").show();
+        });
+    }
+
+    function checkAndSendPost() {
+        var title = document.getElementById("title").value;
+        var content = document.getElementById("content").value;
+
+        if (title == "" || content == "") {
+            alert("title or content empty!!!");
+            return;
+        }
+
+        data = {
+            "title": title,
+            "content": content
+        }
+
+        $.post("post_handler.php", data, function(resp, status) {
+            if (status == "success" && resp == "OK") {
+                window.location = "/list.php";
+            } else {
+                writeLog(status + ": " + resp);
+            }
+        });
+    }
+</script>
+</body>
+</html>

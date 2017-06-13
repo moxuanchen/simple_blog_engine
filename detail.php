@@ -1,7 +1,14 @@
 <?php
 
+require_once "utils.php";
+confirmUserHasLogin();
+
 require_once "db.php";
 require_once "logger.php";
+
+if (! isset($_GET["id"])) {
+    header("location: /list.php");
+}
 
 $id = $_GET["id"];
 
@@ -71,7 +78,7 @@ $all_comments
             "comment": comment,
         }
 
-        $.post("comment.php", data, function (resp, status) {
+        $.post("comment_handler.php", data, function (resp, status) {
             if (resp == "OK" && status == "success") {
                 window.location = window.location.href;
             } else {

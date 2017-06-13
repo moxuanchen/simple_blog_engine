@@ -1,5 +1,8 @@
 <?php
 
+require_once "utils.php";
+confirmUserHasLogin();
+
 require_once "db.php";
 
 function get_all_posts()
