@@ -2,6 +2,7 @@
 
 class Logger {
 
+    private static $instance = null;
     private $f_handle = null;
     private $logger_file = "/tmp/simple_engine.log";
 
@@ -16,6 +17,13 @@ class Logger {
 
     public function __destruct() {
         fclose($this->f_handle);
+    }
+
+    public static function GetLogger() {
+        if (is_null(self::$instance)) {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 }
 ?>
