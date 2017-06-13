@@ -36,6 +36,10 @@ $html_body = <<< _END
 </head>
 <body>
 <h1>Blog Post List...</h1>
+<div align="right">
+    <a href="post.php">New Post</a>
+    <a href="logout.php">Logout</a>
+</div>
 <div>
 <ul>
 $blog_posts

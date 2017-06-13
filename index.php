@@ -34,9 +34,9 @@ Password: <input type="password" id="password" />
             "password": password,
         }
 
-        $.post("login.php", data, function(resp, status) {
+        $.post("handler/login_handler.php", data, function(resp, status) {
             if (resp == "OK" && status == "success") {
-                window.location = "post.php";
+                window.location = "list.php";
             } else {
                 alert(status + ": " + resp);
             }

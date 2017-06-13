@@ -12,6 +12,10 @@ require_once "utils.php";
 confirmUserHasLogin();
 
 ?>
+<div align="right">
+    <a href="list.php">Browse Post</a>
+    <a href="logout.php">Logout</a>
+</div>
 <div>
     <div id="log" style="color: red"></div>
     <p>Title: <input type="text" id="title" placeholder="Your post title here..."></p>
@@ -44,7 +48,7 @@ confirmUserHasLogin();
             "content": content
         }
 
-        $.post("post_handler.php", data, function(resp, status) {
+        $.post("handler/post_handler.php", data, function(resp, status) {
             if (status == "success" && resp == "OK") {
                 window.location = "/list.php";
             } else {

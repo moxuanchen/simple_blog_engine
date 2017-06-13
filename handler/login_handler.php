@@ -1,7 +1,12 @@
 <?php
 
-require_once "utils.php";
-denyUserDirectAccess();
+if (! isset($_POST["username"])) {
+    header("location: /index.php");
+}
+
+if (! isset($_POST["username"])) {
+    header("location: /index.php");
+}
 
 $username = $_POST["username"];
 $password = $_POST["password"];

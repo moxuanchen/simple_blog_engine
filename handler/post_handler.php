@@ -1,7 +1,14 @@
 <?php
 
-require_once "logger.php";
-require_once "db.php";
+require_once "../utils.php";
+confirmUserHasLogin();
+
+require_once "../logger.php";
+require_once "../db.php";
+
+if (! isset($_POST["title"])) {
+    header("location: /index.php");
+}
 
 $title = $_POST["title"];
 $content = $_POST["content"];

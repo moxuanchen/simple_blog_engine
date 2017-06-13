@@ -72,13 +72,16 @@ $all_comments
 
     function checkAndSendComment() {
         var comment = document.getElementById("comment").value;
-
+        if (comment == "") {
+            alert("comment empty!");
+            return;
+        }
         data = {
             "id": getPostId(),
             "comment": comment,
         }
 
-        $.post("comment_handler.php", data, function (resp, status) {
+        $.post("handler/comment_handler.php", data, function (resp, status) {
             if (resp == "OK" && status == "success") {
                 window.location = window.location.href;
             } else {

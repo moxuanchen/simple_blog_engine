@@ -12,8 +12,4 @@ function userHasLogin() {
     return isset($_SESSION["username"]);
 }
 
-function denyUserDirectAccess() {
-    header("location: /index.php");
-}
-
 ?>
