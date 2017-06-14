@@ -27,12 +27,20 @@ function get_all_posts()
         $result->data_seek($i);
         $data = $result->fetch_array(MYSQL_ASSOC);
 
+        $id = $data["id"];
+        $title = $data["title"];
+        $username = $_SESSION["username"];
+
         if ($_SESSION["role"] == 1) {
             $username = get_user_by_id($data["user_id"]);
-            $posts = $posts . "<li><a href='/detail.php?id=" . $data["id"] . "'>" . $data["title"] . "  --" . $username . "</a></li>" . "\n";
-        } else {
-            $posts = $posts . "<li><a href='/detail.php?id=" . $data["id"] . "'>" . $data["title"] . "</a></li>" . "\n";
         }
+        $item = <<< _END
+<tr>
+    <td><a href="/detail.php?id=$id">$title</a></td>
+    <td>$username</td>
+</tr>
+_END;
+        $posts .= $item;
     }
     $result->close();
     $conn->close();
@@ -52,11 +60,13 @@ $html_body = <<< _END
     <a href="post.php">New Post</a>
     <a href="logout.php">Logout</a>
 </div>
-<div>
-<ul>
+<table>
+<tr>
+    <th>Title</th>
+    <th>Author</th>
+</tr>
 $blog_posts
-</ul>
-</div>
+</table>
 </body>
 </html>
 _END;
