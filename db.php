@@ -14,4 +14,25 @@ function mysqli_connect_database()
     return $conn;
 }
 
+function get_user_by_id($user_id) {
+    $conn = mysqli_connect_database();
+    $query = "select * from user where id='$user_id'";
+    Logger::GetLogger()->write($query);
+    $result = $conn->query($query);
+    if (! $result) {
+        die($conn->error);
+    }
+
+    if ($result->num_rows == 0) {
+        return "anonymous";
+    }
+
+    $user = $result->fetch_array(MYSQL_ASSOC);
+    $result->close();
+    $conn->close();
+
+    return $user["username"];
+
+}
+
 ?>

@@ -38,7 +38,7 @@ $_SESSION["user_id"] = $user["id"];
 $_SESSION["role"] = $user["role"];
 
 $result->close();
-$conn->close()
+$conn->close();
 
 echo "OK";
 

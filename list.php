@@ -4,13 +4,15 @@ require_once "utils.php";
 confirmUserHasLogin();
 
 require_once "db.php";
+require_once "logger.php";
 
 function get_all_posts()
 {
     $posts = "";
     $user_id = $_SESSION["user_id"];
     $conn = mysqli_connect_database();
-    $query = "select id, title from post";
+    $query = "select * from post";
+    Logger::GetLogger()->write($query);
     if ($_SESSION["role"] != 1) {
         $query .= " where user_id='$user_id'";
     }
@@ -24,7 +26,13 @@ function get_all_posts()
     for ($i = 0; $i < $rows; $i ++) {
         $result->data_seek($i);
         $data = $result->fetch_array(MYSQL_ASSOC);
-        $posts = $posts . "<li><a href='/detail.php?id=" . $data["id"] . "'>" . $data["title"] . "</a></li>" . "\n";
+
+        if ($_SESSION["role"] == 1) {
+            $username = get_user_by_id($data["user_id"]);
+            $posts = $posts . "<li><a href='/detail.php?id=" . $data["id"] . "'>" . $data["title"] . "  --" . $username . "</a></li>" . "\n";
+        } else {
+            $posts = $posts . "<li><a href='/detail.php?id=" . $data["id"] . "'>" . $data["title"] . "</a></li>" . "\n";
+        }
     }
     $result->close();
     $conn->close();

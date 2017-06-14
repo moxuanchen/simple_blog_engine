@@ -25,6 +25,7 @@ $row = $result->fetch_array(MYSQL_ASSOC);
 $title = $row["title"];
 $content = $row["content"];
 $create_at = $row["create_at"];
+$author = get_user_by_id($row["user_id"]);
 $result->close();
 
 $query = "select * from comment where post_id='$id'";
@@ -54,6 +55,7 @@ $html_body = <<< _END
 <div align="center">
 $content
 </div>
+<p align="right">-- $author</p>
 <p align="right">$create_at</p>
 <div id="comments">
 <p> All comments: </p>
