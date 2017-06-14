@@ -29,6 +29,7 @@ function get_all_posts()
 
         $id = $data["id"];
         $title = $data["title"];
+        $create_at = $data["create_at"];
         $username = $_SESSION["username"];
 
         if ($_SESSION["role"] == 1) {
@@ -38,6 +39,7 @@ function get_all_posts()
 <tr>
     <td><a href="/detail.php?id=$id">$title</a></td>
     <td>$username</td>
+    <td>$create_at</td>
 </tr>
 _END;
         $posts .= $item;
@@ -64,6 +66,7 @@ $html_body = <<< _END
 <tr>
     <th>Title</th>
     <th>Author</th>
+    <th>Create_at</th>
 </tr>
 $blog_posts
 </table>

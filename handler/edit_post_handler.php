@@ -15,7 +15,8 @@ require_once "../db.php";
 require_once "../logger.php";
 
 $conn = mysqli_connect_database();
-$query = "update post set title='$title', content='$content' where id='$id'";
+$curr_date = date("Y-m-d h:i:s");
+$query = "update post set title='$title', content='$content', create_at='$curr_date' where id='$id'";
 Logger::GetLogger()->write($query);
 $result = $conn->query($query);
 if (! $result) {
