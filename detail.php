@@ -51,11 +51,12 @@ $html_body = <<< _END
     <script type="text/javascript" src="static/js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
+<p align="right"><a href="edit.php?=$id">Edit</a></p>
 <h1 align="center">$title</h1>
 <div align="center">
 $content
 </div>
-<p align="right">-- $author</p>
+<p align="right">--$author</p>
 <p align="right">$create_at</p>
 <div id="comments">
 <p> All comments: </p>
