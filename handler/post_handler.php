@@ -13,8 +13,9 @@ if (! isset($_POST["title"])) {
 $title = $_POST["title"];
 $content = $_POST["content"];
 
+$user_id = $_SESSION["user_id"];
 $conn = mysqli_connect_database();
-$query = "select * from post where title='$title'";
+$query = "select * from post where title='$title' and user_id=$user_id";
 Logger::GetLogger()->write($query);
 
 $result = $conn->query($query);
@@ -28,7 +29,9 @@ if ($result->num_rows > 0) {
 
 $result->close();
 
-$query = "insert into post(title, content) values('$title', '$content')";
+session_start();
+$user_id = $_SESSION["user_id"];
+$query = "insert into post(title, content, user_id) values('$title', '$content', '$user_id')";
 Logger::GetLogger()->write($query);
 $result = $conn->query($query);
 if (! $result) {

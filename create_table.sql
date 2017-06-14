@@ -18,3 +18,14 @@ CREATE TABLE `blog`.`comment` (
     REFERENCES `blog`.`post` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+
+CREATE TABLE `blog`.`user` (
+  `id` INT NOT NULL,
+  `username` VARCHAR(32) NOT NULL,
+  `password` VARCHAR(64) NOT NULL,
+  `active` TINYINT NULL DEFAULT 1,
+  `role` INT NULL,
+  `create_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC));

@@ -8,8 +8,12 @@ require_once "db.php";
 function get_all_posts()
 {
     $posts = "";
+    $user_id = $_SESSION["user_id"];
     $conn = mysqli_connect_database();
     $query = "select id, title from post";
+    if ($_SESSION["role"] != 1) {
+        $query .= " where user_id='$user_id'";
+    }
     $result = $conn->query($query);
     if (! $result) {
         die($conn->error);

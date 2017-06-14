@@ -17,7 +17,9 @@ Username: <input type="text" id="username" />
 <br />
 Password: <input type="password" id="password" />
 <br />
-<input type="submit" onclick="checkAndSendLoginInfo()" />
+<button onclick="checkAndSendLoginInfo()">Login</button>
+<button onclick="redirectToRegister()">Register</button>
+
 
 <script type="text/javascript">
     function checkAndSendLoginInfo() {
@@ -41,6 +43,10 @@ Password: <input type="password" id="password" />
                 alert(status + ": " + resp);
             }
         });
+    }
+
+    function redirectToRegister() {
+        window.location = "/register.php";
     }
 </script>
 </body>
