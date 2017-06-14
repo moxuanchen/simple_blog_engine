@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>System manage...</title>
+    <script type="application/javascript" src="static/js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 <div id="operator">
@@ -19,33 +20,31 @@
     }
 
     function doUserManage() {
-        user_list = [
-            {
-                "name": "name1",
-                "role": 1,
-                "active": 1,
-                "create_at": "2017-01-01 00:00:00"
-            },
-            {
-                "name": "name2",
-                "role": 1,
-                "active": 1,
-                "create_at": "2017-01-01 00:00:00"
+
+        $.get("handler/manage_user_handler.php", function (resp, status) {
+            if (status != "success") {
+                return;
             }
-        ]
+            var user_list = JSON.parse(resp);
+            var table_start = "<table><th>Name</th>" +
+                "<th>Role</th>" +
+                "<th>Active</th>" +
+                "<th>Create_at</th>";
 
-        var table_start = "<table><th>Name</th><th>Role</th><th>Active</th><th>Create_at</th>";
-        var table_end = "</table>"
+            var table_end = "</table>"
+            var table_body = "";
 
-        var table_body = "";
-        for (i = 0; i < user_list.length; i ++) {
-            table_body += "<tr>" + "<td>" + user_list[i]["name"] + "</td>" +
-                "<td>" + user_list[i]["role"] + "</td>" +
-                "<td>" + user_list[i]["active"] + "</td>" +
-                "<td>" + user_list[i]["create_at"] + "</td>" + "</tr>";
-        }
-        var el_display = document.getElementById("display");
-        el_display.innerHTML = table_start + table_body + table_end;
+            for (var i = 0; i < user_list.length; i ++) {
+                table_body += "<tr>" + "<td>" +
+                    "<a href=/user_edit.php?id=" + user_list[i]["id"] + ">" +
+                    user_list[i]["name"] + "</a>" + "</td>" +
+                    "<td>" + user_list[i]["role"] + "</td>" +
+                    "<td>" + user_list[i]["active"] + "</td>" +
+                    "<td>" + user_list[i]["create_at"] + "</td>" + "</tr>";
+            }
+            var el_display = document.getElementById("display");
+            el_display.innerHTML = table_start + table_body + table_end;
+        });
     }
 </script>
 
