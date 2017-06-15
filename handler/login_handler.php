@@ -14,7 +14,7 @@ $conn = mysqli_connect_database();
 $query = "select * from user where username='$username'";
 Logger::GetLogger()->write($query);
 $result = $conn->query($query);
-if (! result) {
+if (! $result) {
     die($conn->error);
 }
 

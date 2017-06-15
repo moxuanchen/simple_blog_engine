@@ -38,7 +38,16 @@ Password: <input type="password" id="password" />
 
         $.post("handler/login_handler.php", data, function(resp, status) {
             if (resp == "OK" && status == "success") {
-                window.location = "list.php";
+                $.get("handler/get_user_info_handler.php?username=" + username, function (resp, status) {
+                    if (status == "success") {
+                        var data = JSON.parse(resp);
+                        if (data["role"] == 1) {
+                            window.location="manage.php";
+                        }
+                    } else {
+                        window.location = "list.php";
+                    }
+                });
             } else {
                 alert(status + ": " + resp);
             }

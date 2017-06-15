@@ -3,16 +3,22 @@
 require_once "../utils.php";
 confirmUserHasLogin();
 
-if (! isset($_GET["id"])) {
+if (! isset($_GET["id"]) && ! isset($_GET["username"])) {
     header("location: /index.html");
 }
 
 require_once "../db.php";
 require_once "../logger.php";
 
-$id = $_GET["id"];
 $conn = mysqli_connect_database();
-$query = "select * from user where id='$id'";
+
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
+    $query = "select * from user where id=$id";
+} else if (isset($_GET["username"])) {
+    $username = $_GET["username"];
+    $query = "select * from user where username='$username'";
+}
 Logger::GetLogger()->write($query);
 $result = $conn->query($query);
 if (! $result) {
