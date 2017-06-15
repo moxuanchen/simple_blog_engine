@@ -13,7 +13,7 @@ confirmUserHasLogin();
 <body>
 <h1 id="edit_name">User Editing: </h1>
 <form>
-        Username: <input type="text" id="username" /><br />
+        Username: <input type="text" id="username" disabled/><br />
     Role:
     <select id="role">
         <option value="1">Admin</option>
@@ -25,7 +25,7 @@ confirmUserHasLogin();
         <option value="1">Active</option>
     </select>
     <br />
-    <input type="submit" id="submit"/>
+    <input type="submit" id="submit" onclick="checkAndUpdateUserInfo()"/>
 </form>
 <script type="application/javascript">
     function get_user_id() {
@@ -40,10 +40,39 @@ confirmUserHasLogin();
             el_head.innerHTML = el_head.innerHTML + user["username"];
 
             document.getElementById("username").value = user["username"];
-            document.getElementById("active").selectedIndex = user["active"];
-            document.getElementById("role").selectedIndex = user["role"];
+            var active_selector = document.getElementById("active");
+            for (var i = 0; i < active_selector.options.length; i ++) {
+                if (active_selector.options[i].value == user["active"]) {
+                    active_selector.options[i].selected = true;
+                    break;
+                }
+            }
+            var role_selector = document.getElementById("role");
+            for (var i = 0; i < role_selector.options.length; i ++) {
+                if (role_selector.options[i].value == user["role"]) {
+                    role_selector.options[i].selected = true;
+                    break;
+                }
+            }
         });
     };
+    
+    function checkAndUpdateUserInfo() {
+        var data = {
+            "id": get_user_id(),
+            "active": document.getElementById("active").value,
+            "role": document.getElementById("role").value
+        }
+
+        $.post("handler/update_user_info_handler.php", data, function (resp, status) {
+            if (resp == "OK" && status == "success") {
+                window.location = "/manage.php";
+            } else {
+                alert(status + ": " + resp);
+            }
+        });
+    }
+
 </script>
 </body>
 </html>

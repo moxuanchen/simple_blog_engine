@@ -1,3 +1,8 @@
+<?php
+    require_once "utils.php";
+    confirmUserIsAdmin();
+?>
+
 <html>
 <head>
     <title>System manage...</title>
