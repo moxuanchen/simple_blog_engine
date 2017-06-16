@@ -7,6 +7,8 @@
 <head>
     <title>System manage...</title>
     <script type="application/javascript" src="static/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div id="operator">

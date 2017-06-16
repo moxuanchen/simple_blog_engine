@@ -3,6 +3,8 @@
 <head>
     <title>User register...</title>
     <script type="text/javascript" src="static/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <p><h2>User Register...</h2></p>

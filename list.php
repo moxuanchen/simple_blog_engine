@@ -55,6 +55,8 @@ $html_body = <<< _END
 <html>
 <head>
     <title>Blog post list...</title>
+    <script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <h1>Blog Post List...</h1>
